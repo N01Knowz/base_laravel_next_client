@@ -6,7 +6,7 @@ export const metadata = {
 const RootLayout = ({ children }) => {
     return (
         <html lang="en">
-            <body className="antialiased">{children}</body>
+            <body className="antialiased" data-theme="dracula">{children}</body>
         </html>
     )
 }
