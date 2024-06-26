@@ -7,6 +7,7 @@ import { useAuth } from '@/hooks/auth'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import AuthSessionStatus from '@/app/(auth)/AuthSessionStatus'
+import Loading from '@/app/(app)/dashboard/Loading'
 
 const Login = () => {
     const router = useRouter()
@@ -20,6 +21,7 @@ const Login = () => {
     const [password, setPassword] = useState('')
     const [shouldRemember, setShouldRemember] = useState(false)
     const [errors, setErrors] = useState([])
+    const [loading, setLoading] = useState(false)
     const [status, setStatus] = useState(null)
 
     useEffect(() => {
@@ -38,6 +40,7 @@ const Login = () => {
             password,
             remember: shouldRemember,
             setErrors,
+            setLoading,
             setStatus,
         })
     }
@@ -77,10 +80,7 @@ const Login = () => {
                         autoComplete="current-password"
                     />
 
-                    <InputError
-                        messages={errors.password}
-                        className="mt-2"
-                    />
+                    <InputError messages={errors.password} className="mt-2" />
                 </div>
 
                 {/* Remember Me */}
@@ -98,9 +98,7 @@ const Login = () => {
                             }
                         />
 
-                        <span className="ml-2 text-sm">
-                            Remember me
-                        </span>
+                        <span className="ml-2 text-sm">Remember me</span>
                     </label>
                 </div>
 
@@ -115,7 +113,13 @@ const Login = () => {
                         className="underline text-sm hover:text-secondary">
                         Forgot your password?
                     </Link> */}
-                    <button type="submit" className='btn btn-outline'>Login</button>
+                    <button type="submit" className="btn btn-outline">
+                        {loading ? (
+                            <span className="loading loading-spinner loading-xs"></span>
+                        ) : (
+                            'Login'
+                        )}
+                    </button>
                 </div>
             </form>
         </>

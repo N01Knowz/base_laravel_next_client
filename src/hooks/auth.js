@@ -7,7 +7,11 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
     const router = useRouter()
     const params = useParams()
 
-    const { data: user, error, mutate } = useSWR('/api/user', () =>
+    const {
+        data: user,
+        error,
+        mutate,
+    } = useSWR('/api/user', () =>
         axios
             .get('/api/user')
             .then(res => res.data)
@@ -20,7 +24,10 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
 
     const csrf = () => axios.get('/sanctum/csrf-cookie')
 
-    const register = async ({ setErrors, ...props }) => {
+    const register = async ({ setErrors, setLoading = null, ...props }) => {
+        if (setLoading) {
+            setLoading(true)
+        }
         await csrf()
 
         setErrors([])
@@ -33,9 +40,22 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
 
                 setErrors(error.response.data.errors)
             })
+            .finally(() => {
+                if (setLoading) {
+                    setLoading(false)
+                }
+            })
     }
 
-    const login = async ({ setErrors, setStatus, ...props }) => {
+    const login = async ({
+        setErrors,
+        setLoading = null,
+        setStatus,
+        ...props
+    }) => {
+        if (setLoading) {
+            setLoading(true)
+        }
         await csrf()
 
         setErrors([])
@@ -48,6 +68,11 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
                 if (error.response.status !== 422) throw error
 
                 setErrors(error.response.data.errors)
+            })
+            .finally(() => {
+                if (setLoading) {
+                    setLoading(false)
+                }
             })
     }
 

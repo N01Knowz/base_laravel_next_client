@@ -15,12 +15,12 @@ const Page = () => {
 
     const [first_name, setFirst_name] = useState('')
     const [last_name, setLast_name] = useState('')
-    const [name, setName] = useState('')
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [passwordConfirmation, setPasswordConfirmation] = useState('')
     const [errors, setErrors] = useState([])
+    const [loading, setLoading] = useState(false)
 
     const submitForm = event => {
         event.preventDefault()
@@ -29,11 +29,11 @@ const Page = () => {
             first_name,
             last_name,
             username,
-            name,
             email,
             password,
             password_confirmation: passwordConfirmation,
             setErrors,
+            setLoading,
         })
     }
 
@@ -149,7 +149,11 @@ const Page = () => {
                 </Link>
 
                 <button type="submit" className="btn btn-outline">
-                    Register
+                    {loading ? (
+                        <span className="loading loading-spinner loading-xs"></span>
+                    ) : (
+                        'Register'
+                    )}
                 </button>
             </div>
         </form>
