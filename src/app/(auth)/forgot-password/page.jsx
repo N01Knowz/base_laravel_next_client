@@ -1,6 +1,5 @@
 'use client'
 
-import Button from '@/components/Button'
 import Input from '@/components/Input'
 import InputError from '@/components/InputError'
 import Label from '@/components/Label'
@@ -54,7 +53,7 @@ const Page = () => {
                 </div>
 
                 <div className="flex items-center justify-end mt-4">
-                    <Button>Email Password Reset Link</Button>
+                    <button type="submit" className='btn btn-outline'>Email Password Reset Link</button>
                 </div>
             </form>
         </>

@@ -1,6 +1,5 @@
 'use client'
 
-import Button from '@/components/Button'
 import Input from '@/components/Input'
 import InputError from '@/components/InputError'
 import Label from '@/components/Label'
@@ -14,7 +13,10 @@ const Page = () => {
         redirectIfAuthenticated: '/dashboard',
     })
 
+    const [first_name, setFirst_name] = useState('')
+    const [last_name, setLast_name] = useState('')
     const [name, setName] = useState('')
+    const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [passwordConfirmation, setPasswordConfirmation] = useState('')
@@ -24,6 +26,9 @@ const Page = () => {
         event.preventDefault()
 
         register({
+            first_name,
+            last_name,
+            username,
             name,
             email,
             password,
@@ -36,19 +41,50 @@ const Page = () => {
         <form onSubmit={submitForm}>
             {/* Name */}
             <div>
-                <Label htmlFor="name">Name</Label>
+                <Label htmlFor="first_name">First Name</Label>
 
                 <Input
-                    id="name"
                     type="text"
-                    value={name}
                     className="block mt-1 w-full"
-                    onChange={event => setName(event.target.value)}
+                    id="first_name"
+                    value={first_name}
+                    onChange={event => setFirst_name(event.target.value)}
+                    required
+                    autoFocus
+                />
+                <InputError messages={errors.first_name} className="mt-2" />
+            </div>
+
+            <div className="mt-4">
+                <Label htmlFor="last_name">Last Name</Label>
+
+                <Input
+                    id="last_name"
+                    type="text"
+                    value={last_name}
+                    className="block mt-1 w-full"
+                    onChange={event => setLast_name(event.target.value)}
                     required
                     autoFocus
                 />
 
-                <InputError messages={errors.name} className="mt-2" />
+                <InputError messages={errors.last_name} className="mt-2" />
+            </div>
+
+            <div className="mt-4">
+                <Label htmlFor="username">Username</Label>
+
+                <Input
+                    id="username"
+                    type="text"
+                    value={username}
+                    className="block mt-1 w-full"
+                    onChange={event => setUsername(event.target.value)}
+                    required
+                    autoFocus
+                />
+
+                <InputError messages={errors.username} className="mt-2" />
             </div>
 
             {/* Email Address */}
@@ -86,9 +122,7 @@ const Page = () => {
 
             {/* Confirm Password */}
             <div className="mt-4">
-                <Label htmlFor="passwordConfirmation">
-                    Confirm Password
-                </Label>
+                <Label htmlFor="passwordConfirmation">Confirm Password</Label>
 
                 <Input
                     id="passwordConfirmation"
@@ -107,14 +141,16 @@ const Page = () => {
                 />
             </div>
 
-            <div className="flex items-center justify-end mt-4">
+            <div className="flex items-center justify-between mt-4">
                 <Link
                     href="/login"
-                    className="underline text-sm text-gray-600 hover:text-gray-900">
+                    className="underline text-sm hover:text-secondary">
                     Already registered?
                 </Link>
 
-                <Button className="ml-4">Register</Button>
+                <button type="submit" className="btn btn-outline">
+                    Register
+                </button>
             </div>
         </form>
     )

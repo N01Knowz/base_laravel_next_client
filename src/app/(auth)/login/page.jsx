@@ -1,6 +1,4 @@
 'use client'
-
-import Button from '@/components/Button'
 import Input from '@/components/Input'
 import InputError from '@/components/InputError'
 import Label from '@/components/Label'
@@ -18,7 +16,7 @@ const Login = () => {
         redirectIfAuthenticated: '/dashboard',
     })
 
-    const [email, setEmail] = useState('')
+    const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [shouldRemember, setShouldRemember] = useState(false)
     const [errors, setErrors] = useState([])
@@ -36,7 +34,7 @@ const Login = () => {
         event.preventDefault()
 
         login({
-            email,
+            username,
             password,
             remember: shouldRemember,
             setErrors,
@@ -48,21 +46,21 @@ const Login = () => {
         <>
             <AuthSessionStatus className="mb-4" status={status} />
             <form onSubmit={submitForm}>
-                {/* Email Address */}
+                {/* Username Address */}
                 <div>
-                    <Label htmlFor="email">Email</Label>
+                    <Label htmlFor="username">Username</Label>
 
                     <Input
-                        id="email"
-                        type="email"
-                        value={email}
+                        id="username"
+                        type="username"
+                        value={username}
                         className="block mt-1 w-full"
-                        onChange={event => setEmail(event.target.value)}
+                        onChange={event => setUsername(event.target.value)}
                         required
                         autoFocus
                     />
 
-                    <InputError messages={errors.email} className="mt-2" />
+                    <InputError messages={errors.username} className="mt-2" />
                 </div>
 
                 {/* Password */}
@@ -100,20 +98,24 @@ const Login = () => {
                             }
                         />
 
-                        <span className="ml-2 text-sm text-gray-600">
+                        <span className="ml-2 text-sm">
                             Remember me
                         </span>
                     </label>
                 </div>
 
-                <div className="flex items-center justify-end mt-4">
+                <div className="flex items-center justify-between mt-4">
                     <Link
-                        href="/forgot-password"
-                        className="underline text-sm text-gray-600 hover:text-gray-900">
-                        Forgot your password?
+                        href="/register"
+                        className="underline text-sm hover:text-secondary">
+                        Register
                     </Link>
-
-                    <Button className="ml-3">Login</Button>
+                    {/* <Link
+                        href="/forgot-password"
+                        className="underline text-sm hover:text-secondary">
+                        Forgot your password?
+                    </Link> */}
+                    <button type="submit" className='btn btn-outline'>Login</button>
                 </div>
             </form>
         </>

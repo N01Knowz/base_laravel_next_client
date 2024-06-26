@@ -29,9 +29,9 @@ const Page = () => {
             )}
 
             <div className="mt-4 flex items-center justify-between">
-                <Button onClick={() => resendEmailVerification({ setStatus })}>
+                <button type="submit" className="btn btn-outline" onClick={() => resendEmailVerification({ setStatus })}>
                     Resend Verification Email
-                </Button>
+                </button>
 
                 <button
                     type="button"

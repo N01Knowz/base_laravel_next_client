@@ -37,7 +37,7 @@ module.exports = {
             'sunset',
         ],
     },
-    content: ['./src/**/*.js'],
+    content: ['./src/**/*.js','./src/**/*.jsx'],
     darkMode: 'media',
     theme: {
         extend: {
